@@ -13,7 +13,7 @@ torchtext
 
 lightning>=2.0.8
 mlflow
-pydantic<2.0,>=1.7.4
+pydantic>=1.7.4,<3.0
 SQLAlchemy
 aim
 chess
