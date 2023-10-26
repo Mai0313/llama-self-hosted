@@ -40,3 +40,4 @@ autorootcwd
 sh
 ipykernel
 ipywidgets
+accelerate
