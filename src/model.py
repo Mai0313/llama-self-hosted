@@ -21,7 +21,7 @@ def generate_response(input_text):
     sequences = pipeline(
         input_text,
         do_sample=True,
-        top_k=1,
+        top_k=10,
         num_return_sequences=1,
         eos_token_id=tokenizer.eos_token_id,
         max_length=200,
