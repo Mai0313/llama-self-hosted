@@ -1,23 +1,22 @@
+# --index-url https://pypi.org/simple
+# --extra-index-url https://download.pytorch.org/whl/cu118
+# torch==2.1.1+cu118
+# torchvision==0.16.1+cu118
+# torchaudio==2.1.1+cu118
+# torchtext
+
 --index-url https://pypi.org/simple
---extra-index-url https://download.pytorch.org/whl/cu118
-torch==2.1.0+cu118
-torchvision==0.16.0+cu118
-torchaudio==2.1.0+cu118
+--extra-index-url https://download.pytorch.org/whl/cu116
+torch==1.12.1+cu116
+torchvision==0.13.1+cu116
+torchaudio==0.12.1
 torchtext
 
-# --index-url https://pypi.org/simple
-# --extra-index-url https://download.pytorch.org/whl/cu116
-# torch==1.12.1+cu116
-# torchvision==0.13.1+cu116
-# torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu116
-
-lightning>=2.0.8
+lightning==2.1.2
 mlflow
-pydantic<2.0,>=1.7.4
+pydantic
 SQLAlchemy
-aim
-chess
-pre-commit
+aim<4.0.0
 dvc
 dvc[s3]
 rich
@@ -34,11 +33,18 @@ rootutils
 tensorboard
 tensorboardX
 wandb
-fire
-pytest
+autoroot
 autorootcwd
-sh
 ipykernel
 ipywidgets
-accelerate
+orjsonl
+pandas
+pyarrow
+fastparquet
+sentencepiece
 transformers
+
+# dev dependencies
+pre-commit
+pytest
+sh
