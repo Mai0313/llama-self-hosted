@@ -1,16 +1,16 @@
-import os
 import json
-import requests
+import os
 import time
-from omegaconf import OmegaConf
+
+import requests
 import urllib3
+from omegaconf import OmegaConf
 
 urllib3.disable_warnings()
 
 
 def complete_with_LLM(api_key, prompt: str, model_type: str, max_retry: int, parameters=None):
-    """
-    prompt: LLM input
+    """prompt: LLM input
     model_type: model type. see playgroud api /v2/info
         - "bloomz-7b1"
         - "homer-model/toxic-bert"
@@ -27,14 +27,13 @@ def complete_with_LLM(api_key, prompt: str, model_type: str, max_retry: int, par
         - "codellama-34b-instruct"
     max_retry: max times to retry if LLM request fails
     """
-
     headers = {
         "Content-Type": "application/json",
         "accept": "application/json",
-        "Authorization": f"Bearer {api_key}"
+        "Authorization": f"Bearer {api_key}",
     }
 
-    url = f"https://mtklm-oa.mediatek.inc/llm/api/v2/tasks/wait"
+    url = "https://mtklm-oa.mediatek.inc/llm/api/v2/tasks/wait"
 
     if not parameters:
         # if there are no params, use default parameters
@@ -52,9 +51,7 @@ def complete_with_LLM(api_key, prompt: str, model_type: str, max_retry: int, par
             "max_time": 0,
             "max_new_tokens": 0,
             "return_output_only": False,
-            "input_parameter_keys": [
-                "string"
-            ]
+            "input_parameter_keys": ["string"],
         }
 
     data = {
@@ -67,13 +64,15 @@ def complete_with_LLM(api_key, prompt: str, model_type: str, max_retry: int, par
     for i in range(max_retry):
         is_good = False
         try:
-            resp = requests.post(url,json=data, headers=headers, verify=False) # or SSLCertVerificationError
+            resp = requests.post(
+                url, json=data, headers=headers, verify=False
+            )  # or SSLCertVerificationError
             is_good = resp.status_code == 200
             if not is_good:
-                print('status_code = ', resp.status_code, ', retry...')
+                print("status_code = ", resp.status_code, ", retry...")
         except:
-            print(f'{i}-th retry, will retry after {15 * (i+1)} sec')
-            time.sleep(15 * (i+1))
+            print(f"{i}-th retry, will retry after {15 * (i+1)} sec")
+            time.sleep(15 * (i + 1))
         if is_good:
             break
         if i == (max_retry - 1):
@@ -90,5 +89,7 @@ def complete_with_LLM(api_key, prompt: str, model_type: str, max_retry: int, par
 if __name__ == "__main__":
     setting = OmegaConf.load("./configs/setting.yaml")
     api_key = setting.MTK_PLAYGROUND_API_KEY
-    result = complete_with_LLM(api_key, "how do I use pygame to make a game", model_type="codellama-13b", max_retry=100)
+    result = complete_with_LLM(
+        api_key, "how do I use pygame to make a game", model_type="codellama-13b", max_retry=100
+    )
     print(result)

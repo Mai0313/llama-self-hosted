@@ -1,21 +1,19 @@
-from transformers import AutoTokenizer
-import transformers
-import torch
 import rootutils
+import torch
+import transformers
 from omegaconf import OmegaConf
+from transformers import AutoTokenizer
 
 rootutils.setup_root(__file__, indicator=".project-root", pythonpath=True)
 
 
 # model_selection = "meta-llama/Llama-2-7b-chat-hf"
 model_selection = "meta-llama/Llama-2-13b-chat-hf"
-tokenizer = AutoTokenizer.from_pretrained(model_selection, cache_dir = "./models")
+tokenizer = AutoTokenizer.from_pretrained(model_selection, cache_dir="./models")
 pipeline = transformers.pipeline(
-    "text-generation",
-    model=model_selection,
-    torch_dtype=torch.float16,
-    device_map="auto",
+    "text-generation", model=model_selection, torch_dtype=torch.float16, device_map="auto"
 )
+
 
 def generate_response(input_text):
     sequences = pipeline(
@@ -28,6 +26,7 @@ def generate_response(input_text):
     )
     for seq in sequences:
         return f"Result: {seq['generated_text']}"
+
 
 if __name__ == "__main__":
     input_text = 'I liked "Breaking Bad" and "Band of Brothers". Do you have any recommendations of other shows I might like?\n'
