@@ -5,6 +5,9 @@ import time
 import requests
 import urllib3
 from omegaconf import OmegaConf
+from rich.console import Console
+
+console = Console()
 
 urllib3.disable_warnings()
 
@@ -69,9 +72,9 @@ def complete_with_LLM(api_key, prompt: str, model_type: str, max_retry: int, par
             )  # or SSLCertVerificationError
             is_good = resp.status_code == 200
             if not is_good:
-                print("status_code = ", resp.status_code, ", retry...")
-        except:
-            print(f"{i}-th retry, will retry after {15 * (i+1)} sec")
+                console.print("status_code = ", resp.status_code, ", retry...")
+        except Exception:
+            console.print(f"{i}-th retry, will retry after {15 * (i+1)} sec")
             time.sleep(15 * (i + 1))
         if is_good:
             break
@@ -92,4 +95,4 @@ if __name__ == "__main__":
     result = complete_with_LLM(
         api_key, "how do I use pygame to make a game", model_type="codellama-13b", max_retry=100
     )
-    print(result)
+    console.print(result)

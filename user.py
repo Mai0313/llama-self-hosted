@@ -2,6 +2,9 @@ import datetime
 import json
 
 import requests
+from rich.console import Console
+
+console = Console()
 
 
 def get_input():
@@ -26,4 +29,4 @@ def get_user_input(user_input):
 if __name__ == "__main__":
     user_input = get_input()
     result = get_user_input(user_input)
-    print(result)
+    console.print(result)

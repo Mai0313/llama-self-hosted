@@ -2,10 +2,13 @@ import rootutils
 import torch
 import transformers
 from omegaconf import OmegaConf
+from rich.console import Console
 from transformers import AutoTokenizer
 
 rootutils.setup_root(__file__, indicator=".project-root", pythonpath=True)
 
+
+console = Console()
 
 # model_selection = "meta-llama/Llama-2-7b-chat-hf"
 model_selection = "meta-llama/Llama-2-13b-chat-hf"
@@ -31,4 +34,4 @@ def generate_response(input_text):
 if __name__ == "__main__":
     input_text = 'I liked "Breaking Bad" and "Band of Brothers". Do you have any recommendations of other shows I might like?\n'
     result = generate_response(input_text)
-    print(result)
+    console.log(result)
