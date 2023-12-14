@@ -9,7 +9,7 @@
 --extra-index-url https://download.pytorch.org/whl/cu116
 torch==1.12.1+cu116
 torchvision==0.13.1+cu116
-torchaudio==0.12.1
+torchaudio==2.1.2
 torchtext
 
 lightning==2.1.2
